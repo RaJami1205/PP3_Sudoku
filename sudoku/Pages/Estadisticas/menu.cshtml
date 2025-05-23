@@ -1,0 +1,66 @@
+﻿@page
+@model sudoku.Pages.Estadisticas.menuModel
+@{
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">📊 Estadísticas de la Partida</h1>
+    </div>
+
+    <!-- Tarjeta de Estadísticas -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Resumen</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td><strong>Celdas completadas</strong></td>
+                        <td id="celdasIngresadas">0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Verificaciones realizadas</strong></td>
+                        <td id="verificaciones">0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Errores detectados</strong></td>
+                        <td id="errores">0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sugerencias usadas</strong></td>
+                        <td id="sugerencias">0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado</strong></td>
+                        <td id="estado"><span class="badge bg-warning">En progreso</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="mt-4 text-center">
+        <a href="/Juego" class="btn btn-primary me-2">↩️ Volver al juego</a>
+        <a href="/" class="btn btn-outline-secondary">🏠 Ir al inicio</a>
+    </div>
+</div>
+
+<!-- Estilos personalizados -->
+<style>
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+        border: none;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+    }
+</style>
