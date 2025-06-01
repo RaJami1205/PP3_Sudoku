@@ -5,29 +5,52 @@
 
 <div class="text-center">
     <h1>🧩 Sudoku Master 🧩</h1>
+    <form method="post">
+        <div class="sudoku-board mt-4">
+            <table class="table table-bordered">
+                @for (int i = 0; i < 9; i++) {
+                    <tr>
+                        @for (int j = 0; j < 9; j++) {
+                            <td>
+                                <input type="number"
+                                       min="1"
+                                       max="9"
+                                       name="inputs[@i][@j]"
+                                       value="@(Model.Board[i, j])"
+                                       class="sudoku-cell @(Model.MostrarColores && Model.CellColors.ContainsKey((i, j)) ? Model.CellColors[(i, j)] : "")" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
 
-    <div class="sudoku-board mt-4">
-        <table class="table table-bordered">
-            @for (int i = 0; i < 9; i++)
-            {
-                <tr>
-                    @for (int j = 0; j < 9; j++)
-                    {
-                        <td>
-                            <input type="number" min="1" max="9" class="sudoku-cell" />
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
-    </div>
+        <div class="mt-4">
+            <button type="submit" name="action" value="Verificar" class="btn btn-success">✅ Verificar Solución</button>
+            <button type="submit" name="action" value="Pista"
+            @(ViewData["PistasUsadas"] != null && (int) ViewData["PistasUsadas"] >= 5 ? "disabled" : "") class="btn btn-success">
+                Pista
+            </button>
+            <button type="submit" name="action" value="MostrarSolucion" class="btn btn-success">Ver solución</button>
+            <button type="submit" name="action" value="Reiniciar" class="btn btn-danger">🔁 Reiniciar</button>
 
-    <div class="mt-4">
-        <button class="btn btn-success">✅ Verificar Solución</button>
-        <button class="btn btn-danger">🔁 Reiniciar</button>
-        <a href="/" class="btn btn-secondary">🏠 Volver al Inicio</a>
-    </div>
+            <a href="/" class="btn btn-secondary">🏠 Volver al Inicio</a>
+        </div>
+    </form>
+
+
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputs = document.querySelectorAll("input[type='text']");
+
+        inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                input.classList.remove("correct", "incorrect");
+            });
+        });
+    });
+</script>
 
 <style>
     .sudoku-board {
@@ -50,4 +73,13 @@
     td:nth-child(3n) {
         border-right: 3px solid #000;
     }
+
+    .sudoku-cell.correct {
+        background-color: #d4edda;
+    }
+
+    .sudoku-cell.incorrect {
+        background-color: #f8d7da;
+    }
+
 </style>
