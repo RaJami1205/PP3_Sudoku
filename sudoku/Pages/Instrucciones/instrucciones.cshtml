@@ -1,0 +1,113 @@
+﻿@page
+@model sudoku.Pages.Instrucciones.instruccionesModel
+@{
+}
+
+<div class="reglas-container">
+    <h1 class="titulo-reglas animate__animated animate__fadeIn">🎮 Reglas del Sudoku</h1>
+
+    <div class="reglas-grid">
+        <!-- Tarjeta 1: Objetivo -->
+        <div class="regla-card animate__animated animate__slideInLeft">
+            <div class="regla-icon">🎯</div>
+            <h3>Objetivo</h3>
+            <p>Completa la cuadrícula de 9x9 con números del 1 al 9, <strong>sin repetir</strong> ningún número en filas, columnas o subcuadrículas de 3x3.</p>
+        </div>
+
+        <!-- Tarjeta 2: Filas y Columnas -->
+        <div class="regla-card animate__animated animate__slideInRight">
+            <div class="regla-icon">🔢</div>
+            <h3>Filas y Columnas</h3>
+            <p>Cada fila y columna debe contener todos los números del 1 al 9 <strong>sin repeticiones</strong>.</p>
+        </div>
+
+        <!-- Tarjeta 3: Subcuadrículas -->
+        <div class="regla-card animate__animated animate__slideInLeft">
+            <div class="regla-icon">🧩</div>
+            <h3>Subcuadrículas 3x3</h3>
+            <p>Las 9 celdas dentro de cada cuadro grueso (3x3) también deben tener números únicos del 1 al 9.</p>
+        </div>
+
+        <!-- Tarjeta 4: Consejos -->
+        <div class="regla-card animate__animated animate__slideInRight">
+            <div class="regla-icon">💡</div>
+            <h3>Consejos</h3>
+            <p>Empieza por los números más frecuentes en el tablero y usa lógica deductiva. ¡No necesitas adivinar!</p>
+        </div>
+    </div>
+
+    <div class="boton-volver">
+        <a asp-page="/Index" class="btn btn-primary animate__animated animate__bounceIn">Volver al Juego</a>
+    </div>
+</div>
+
+<style>
+        .reglas-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .titulo-reglas {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .reglas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .regla-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+            .regla-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .regla-icon {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .regla-card h3 {
+            color: #3498db;
+            text-align: center;
+        }
+
+        .boton-volver {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #2980b9;
+                transform: scale(1.05);
+            }
+    </style>
+}
+
+<script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</script>
