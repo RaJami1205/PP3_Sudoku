@@ -5,6 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddDistributedMemoryCache(); // Requerido para la sesión
+builder.Services.AddSession(options => {
+	options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo que dura la sesión
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddSingleton<PrologService>();
 
 
@@ -22,6 +29,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

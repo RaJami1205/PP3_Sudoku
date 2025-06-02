@@ -2,6 +2,7 @@
 @model sudoku.Pages.Tablero.tableroModel
 @{
 }
+@using sudoku.Pages.Tablero
 
 <div class="text-center">
     <h1>🧩 Sudoku Master 🧩</h1>
@@ -33,13 +34,59 @@
             </button>
             <button type="submit" name="action" value="MostrarSolucion" class="btn btn-success">Ver solución</button>
             <button type="submit" name="action" value="Reiniciar" class="btn btn-danger">🔁 Reiniciar</button>
+            <button type="submit" name="action" value="NuevoJuego" class="btn btn-primary">🎲 Nuevo Juego</button>
 
             <a href="/" class="btn btn-secondary">🏠 Volver al Inicio</a>
         </div>
     </form>
 
+    @{
+        var mostrarEstadisticas = TempData["MostrarEstadisticas"] != null && (bool)TempData["MostrarEstadisticas"];
+        var estadisticasJson = HttpContext.Session.GetString("EstadisticaActual");
+        var estadisticas = string.IsNullOrEmpty(estadisticasJson)
+    ? new sudoku.Pages.Tablero.tableroModel.EstadisticasJuego()
+    : System.Text.Json.JsonSerializer.Deserialize<sudoku.Pages.Tablero.tableroModel.EstadisticasJuego>(estadisticasJson);
+    }
 
-</div>
+    @if (mostrarEstadisticas) {
+        <div class="modal fade" id="estadisticasModal" tabindex="-1" role="dialog" aria-labelledby="estadisticasLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="estadisticasLabel">📊 Estadísticas de la Partida</h5>
+                        <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">📝 Celdas Ingresadas: <strong>@estadisticas.CeldasIngresadas</strong></li>
+                            <li class="list-group-item">🔍 Verificaciones Realizadas: <strong>@estadisticas.Verificaciones</strong></li>
+                            <li class="list-group-item">❌ Errores de Verificación: <strong>@estadisticas.ErroresVerificacion</strong></li>
+                            <li class="list-group-item">💡 Sugerencias Usadas: <strong>@estadisticas.SugerenciasUsadas</strong></li>
+                            <li class="list-group-item">🏁 Tipo de Finalización: <strong>@estadisticas.TipoFinalizacion</strong></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+ </div>
+
+@if (TempData["MostrarEstadisticas"] != null && (bool) TempData["MostrarEstadisticas"]) {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = new bootstrap.Modal(document.getElementById('estadisticasModal'));
+            modal.show();
+        });
+    </script>
+}
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const inputs = document.querySelectorAll("input[type='text']");
